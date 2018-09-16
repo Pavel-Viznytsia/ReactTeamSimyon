@@ -16,58 +16,58 @@ export default class App extends Component {
 
   componentDidMount() {
     console.log('componentDidMount');
-    if ( !this.state.isGameOver ){
       this.timer = setInterval(() => {
         this.moveBox(0, 20); // move the box down
       }, 250);
-    } else {
-      clearInterval(this.timer);
-    }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     const { x, y, boxes } = this.state;
 
-    // if ( nextState.x === x && nextState.y === 20 ) {
-    //   return false;
-    // }
-
     console.log("1. nextState ", nextState);
 
     console.log("2. x ", x);
     console.log("3. y ", y);
+
+    if ( nextState.x === x && nextState.y === y ) {
+      // this.setState({
+      //   isGameOver: true
+      // });
+      clearInterval(this.timer);
+      return false;
+    }
     
     boxes.forEach( box => {
-      if (nextState.y - y <= 0 ){
-      }
 
-      if ( nextState.x === box.x && nextState.y === box.y || nextState.y === 300) {
-        console.log( '4. WOW.' );
+    if ( nextState.x === box.x && nextState.y === box.y || nextState.y === 300) {
 
-        this.setState( {
-          x: 140,
-          y: 0,
-          boxes: boxes.concat( {
-            x: x,
-            y: y
-          } )
+      this.setState( {
+        x: 140,
+        y: 0,
+        boxes: boxes.concat( {
+          x: x,
+          y: y
         } )
-      }
+      } );
+      console.log('================================added');
+    }
+
     } );
     
     return true; // by default
   }
   
   componentDidUpdate(prevProps, prevState) {
-    const { x, y } = this.state;
+    const { x, y, boxes } = this.state;
     
     console.log("5. prevState ", prevState);
-
-    console.log("6. x ", x);
-    console.log("7. y ", y);
+    
+    // console.log("6. x ", x);
+    // console.log("7. y ", y);
   }
   
   componentWillUnmount() {
+    const { x, y, boxes } = this.state;
     clearInterval(this.timer);
   }
 
@@ -92,6 +92,7 @@ export default class App extends Component {
           y: y
         })
       })
+      console.log('================================added');
     } else {
       this.setState({
         x: x + _x,
