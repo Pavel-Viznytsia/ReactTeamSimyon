@@ -15,59 +15,43 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    console.log('componentDidMount');
-      this.timer = setInterval(() => {
-        this.moveBox(0, 20); // move the box down
-      }, 250);
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    const { x, y, boxes } = this.state;
-
-    console.log("1. nextState ", nextState);
-
-    console.log("2. x ", x);
-    console.log("3. y ", y);
-
-    if ( nextState.x === x && nextState.y === y ) {
-      // this.setState({
-      //   isGameOver: true
-      // });
-      clearInterval(this.timer);
-      return false;
-    }
-    
-    boxes.forEach( box => {
-
-    if ( nextState.x === box.x && nextState.y === box.y || nextState.y === 300) {
-
-      this.setState( {
-        x: 140,
-        y: 0,
-        boxes: boxes.concat( {
-          x: x,
-          y: y
-        } )
-      } );
-      console.log('================================added');
-    }
-
-    } );
-    
-    return true; // by default
+    this.timer = setInterval(() => {
+      this.moveBox(0, 20); // move the box down
+    }, 100);
   }
   
-  componentDidUpdate(prevProps, prevState) {
-    const { x, y, boxes } = this.state;
-    
-    console.log("5. prevState ", prevState);
-    
-    // console.log("6. x ", x);
-    // console.log("7. y ", y);
+  shouldComponentUpdate( nextProps, nextState ) {
+    const { x, y, boxes, isGameOver } = this.state;
+
+    boxes.forEach( box => {
+      if ( boxes.length !== 0 ) {
+        if ( box.y <= 120 ) {
+          this.setState( prevState => ( {
+            x: 140,
+            y: 0,
+            isGameOver: !prevState
+          } ) );
+          clearInterval( this.timer );
+        }
+
+        if ( nextState.x === box.x && nextState.y === box.y || nextState.y === 300 ) {
+          this.setState( {
+            x: 140,
+            y: 0,
+            boxes: boxes.concat( {
+              x: x,
+              y: y
+            } )
+          } );
+        }
+      }
+    } );
+    return !isGameOver; // by default
   }
+  
+  componentDidUpdate(prevProps, prevState) {}
   
   componentWillUnmount() {
-    const { x, y, boxes } = this.state;
     clearInterval(this.timer);
   }
 
@@ -80,24 +64,22 @@ export default class App extends Component {
   };
 
   moveBox = ( _x, _y ) => {
-    console.log('moveBox');
-    const { x, y, boxes } = this.state;
+    const { x, y, boxes, isGameOver } = this.state;
 
     if ( y >= 280 && boxes.length === 0 ) {
-      this.setState({
+      this.setState( {
         x: 140,
         y: 0,
-        boxes: boxes.concat({
+        boxes: boxes.concat( {
           x: x,
           y: y
-        })
-      })
-      console.log('================================added');
-    } else {
-      this.setState({
-        x: x + _x,
-        y: y + _y
-      })
+        } )
+      } );
+    } else if ( !isGameOver ) {
+      this.setState( prevState => ( {
+        x: prevState.x + _x,
+        y: prevState.y + _y
+      } ) );
     }
   };
 
