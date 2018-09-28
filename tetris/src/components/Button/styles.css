@@ -1,0 +1,11 @@
+.playAgainBtn {
+  padding: 8px 16px;
+  font-weight: 700;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.playAgainBtn:hover{
+  background-color: #6ac536;
+  color: #fff;
+}

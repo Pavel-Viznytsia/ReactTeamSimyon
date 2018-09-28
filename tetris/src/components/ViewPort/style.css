@@ -1,5 +1,6 @@
 .viewPort {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
@@ -7,7 +8,6 @@
   height: 300px;
   border: 1px solid #000;
   background: yellow;
-  margin-top: 40px;
 }
 
 .gameOver {
@@ -15,5 +15,4 @@
   border: 3px double #000;
   background: #fff;
   z-index: 1;
-  
 }

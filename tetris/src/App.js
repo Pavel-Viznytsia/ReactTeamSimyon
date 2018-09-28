@@ -50,9 +50,9 @@ export default class App extends Component {
         } ),
       } );
     } else if ( !isGameOver ) {
-      this.setState( prevState => ( {
-        x: prevState.x + _x,
-        y: prevState.y + _y,
+      this.setState( state => ( {
+        x: state.x + _x,
+        y: state.y + _y,
       } ) );
       this.onPlaceExist();
     }
@@ -83,6 +83,15 @@ export default class App extends Component {
     }
   }
 
+  playAgain = () => {
+    this.setState(state => ({
+      x: 140,
+      y: 0,
+      boxes: [],
+      isGameOver: !state.isGameOver,
+    }));
+  }
+
   render() {
     return (
       <div className="application">
@@ -90,6 +99,7 @@ export default class App extends Component {
           state={this.state}
           onKeyUp={this.onKeyUp}
           color={this.props.color}
+          playAgain = {this.playAgain}
         />
       </div>
     );
