@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import ViewPort from './components/ViewPort';
 
 export default class App extends Component {
