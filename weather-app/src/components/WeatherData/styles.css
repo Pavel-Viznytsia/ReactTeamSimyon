@@ -1,8 +1,3 @@
 .weatherCard {
   padding: 16px;
 }
-
-.weather {
-  display: flex;
-  align-items: center;
-}
