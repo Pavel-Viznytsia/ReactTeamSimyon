@@ -13,11 +13,10 @@ const GEO_API = 'http://ip-api.com/json';
 
 export default class App extends Component {
 
-    state = {
-      currentLocation: '',
-      cityName: '',
-      weatherData: {}
-    };
+  state = {
+    cityName: '',
+    weatherData: {}
+  };
 
   componentDidMount() {
     this.getCurrentLocation();
@@ -27,9 +26,6 @@ export default class App extends Component {
     axios
       .get( `${GEO_API}` )
       .then( response => {
-        this.setState( {
-          cityName: response.data.city,
-        } );
         return response.data.city
       } ).then( city => {
         axios
@@ -41,28 +37,38 @@ export default class App extends Component {
   }
 
   onCityChange = event => {
-    this.setState({
+    this.setState( {
       cityName: event.target.value,
-    });
+    } );
   };
 
   fetchData = event => {
+    event.preventDefault();
+
+    this.setState( prevState => ( {
+      isCurrentLocation: !prevState.isCurrentLocation
+    } ) )
+
     axios
-      .get(`${WEATHER_URL}appid=${KEY}&q=${this.state.cityName}`)
-      .then(response => {
-        this.setData(response.data);
-      })
-      .catch(error => console.log('Error: ', error.message));
+      .get( `${WEATHER_URL}appid=${KEY}&q=${this.state.cityName}` )
+      .then( response => {
+        this.setData( response.data );
+      } )
+      .catch( error => console.log( 'Error: ', error.message ) );
   };
 
-  setData = ( { name, main, weather } ) => {
+  setData = ( {
+    name,
+    main,
+    weather
+  } ) => {
     this.setState( {
       weatherData: {
         cityName: name,
-        weather: weather[0].main,
-        description: `(${weather[ 0 ].description})`,
+        weather: weather[ 0 ].main,
+        description: `(${weather[0].description})`,
         img: `${WEATHER_ICON_URL}/${weather[0].icon}.png`,
-        temp: ( main.temp - 273.15 ).toFixed() + ' °C',
+        temp: ( main.temp - 273.15 ).toFixed(),
         pressure: `${main.pressure} mm Hg`,
         humidity: `${main.humidity} %`,
       }
@@ -71,14 +77,15 @@ export default class App extends Component {
 
 
   render() {
-    const { weatherData } = this.state;
+    const { weatherData, currentLocation } = this.state;
     return (
       <div className="App">
+        <h1>Сheck the weather</h1>
         <CityInput
           fetchData={this.fetchData}
           onCityChange={this.onCityChange}
         />
-        <WeatherData weatherData = {weatherData} />
+        <WeatherData weatherData = {weatherData} currentLocation = {currentLocation} />
       </div>
     );
   }

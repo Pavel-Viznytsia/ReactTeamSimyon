@@ -1,16 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
 
 import './styles.css';
+
 
 export default function CityInput(props) {
   const {onCityChange, fetchData} = props;
   return(
-    <div className="cityInputBlock" >
-      <div className="cityName">City name:</div>
-      <input autoFocus onChange={onCityChange} placeholder="Enter city name..."/>
-      <button onClick = {fetchData}>Show weather</button>
-    </div>
+    <form className="cityInputBlock" onSubmit = {fetchData}>
+      <input className="cityInput" autoFocus onChange={onCityChange} placeholder="Enter City..."/>
+      <Button color="primary">
+        Show weather
+      </Button>
+    </form>
   )
 }
 
