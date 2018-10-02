@@ -5,4 +5,11 @@
 
 body {
   padding: 24px;
+  background: #e2e1e0;
+  font-family: Roboto;
+}
+
+h1 {
+  margin-bottom: 16px;
+  font-weight: 400;
 }
