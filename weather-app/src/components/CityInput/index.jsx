@@ -10,7 +10,7 @@ export default function CityInput(props) {
   return(
     <form className="cityInputBlock" onSubmit = {fetchData}>
       <input className="cityInput" autoFocus onChange={onCityChange} placeholder="Enter City..."/>
-      <Button color="primary">
+      <Button type="submit" color="primary">
         Show weather
       </Button>
     </form>

@@ -4,12 +4,11 @@ import PropTypes from 'prop-types';
 import './styles.css';
 
 export default function WeatherData(props){
-  const {currentLocation} = props;
   const {cityName, weather, description, humidity, img, pressure, temp} = props.weatherData;
-  return(
+  return (
     <div className='weatherCard'>
-      {cityName ? <h3 className="cityName">{cityName}</h3> : <h3 className="cityName">{currentLocation}</h3>}
-      <p className="temp">{temp}<span className="deg">C</span></p>
+      <h3 className="cityName">{cityName}</h3>
+      <p className="temp">{temp}</p>
       <figure className="weatherIcon">
         <p className="weather">{weather}</p>
         <img src={img} alt={description}/>
