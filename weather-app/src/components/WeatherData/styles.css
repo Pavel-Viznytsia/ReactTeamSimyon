@@ -29,19 +29,22 @@
   right: -28px;
 }
 
-.deg::before {
-  content: '\00B0';
+.temp::before {
+  content: '\B0';
+  position: absolute;
+  font-size: 43px;
+  top: 0;
+  right: 0;
 }
 
-.deg::after {
-  content: '';
+.temp::after {
+  content: 'C';
   position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 32px;
+  top: 0px;
+  right: -24px;
+  font-size: 40px;
   border-bottom: 1px solid #000;
 }
-
 
 .cityInput {
   padding-left: 8px;

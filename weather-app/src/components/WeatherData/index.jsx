@@ -5,10 +5,10 @@ import './styles.css';
 
 export default function WeatherData(props){
   const {cityName, weather, description, humidity, img, pressure, temp} = props.weatherData;
-  return(
+  return (
     <div className='weatherCard'>
       <h3 className="cityName">{cityName}</h3>
-      <p className="temp">{temp}<span className="deg">C</span></p>
+      <p className="temp">{temp}</p>
       <figure className="weatherIcon">
         <p className="weather">{weather}</p>
         <img src={img} alt={description}/>
