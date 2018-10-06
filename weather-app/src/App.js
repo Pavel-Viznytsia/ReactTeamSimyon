@@ -25,7 +25,6 @@ export default class App extends Component {
    *
    * @param  {Event} event - on input value changes
    */
-
   onCityChange = event => {
     this.setState({
       cityName: event.target.value,
@@ -47,6 +46,7 @@ export default class App extends Component {
         fetch(`${WEATHER_URL}q=${city}&appid=${KEY}`)
           .then(response => {
             if (response.ok) return response.json();
+            throw new Error(this.errorHandler(response.status));
           })
           .then(data => {
             this.setState(prevState => ({
@@ -115,6 +115,13 @@ export default class App extends Component {
       });
   };
 
+  /**
+   * Error handler
+   *
+   * @param {String} error - Error data
+   *
+   * @return {String} - Error message
+   */
   errorHandler = error => `Status ${error}.`;
 
   /**
