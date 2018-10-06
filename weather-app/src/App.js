@@ -21,12 +21,22 @@ export default class App extends Component {
     this.getCurrentLocation();
   }
 
+  /**
+   * Set city name to the state
+   *
+   * @param  {Event} event - on input value changes
+   */
+
   onCityChange = event => {
     this.setState({
       cityName: event.target.value,
     });
   };
 
+  /**
+   * Get current location when first loading the app
+   * @return {Promise}
+   */
   getCurrentLocation = () => {
     axios
       .get(`${GEO_API}`)
@@ -51,6 +61,11 @@ export default class App extends Component {
       });
   };
 
+  /**
+   * Set the state when data was fetched
+   *
+   * @param {Object} data - Weather Data
+   */
   setData = data => {
     const { name, main, weather } = data;
     this.setState({
@@ -67,6 +82,12 @@ export default class App extends Component {
     this.resetInput();
   };
 
+  /**
+   * Fetching weatherData from weather API
+   *
+   * @param  {Event} event - on input change
+   * @return  {Promise} event - on input change
+   */
   fetchData = event => {
     event.preventDefault();
     const { cityName } = this.state;
@@ -89,6 +110,9 @@ export default class App extends Component {
       });
   };
 
+  /**
+   * Reset input value
+   */
   resetInput = () => {
     this.setState({
       cityName: '',
