@@ -6,10 +6,10 @@ import './styles.css';
 
 
 export default function CityInput(props) {
-  const {onCityChange, fetchData} = props;
+  const {cityName, onCityChange, fetchData} = props;
   return(
     <form className="cityInputBlock" onSubmit = {fetchData}>
-      <input className="cityInput" autoFocus onChange={onCityChange} placeholder="Enter City..."/>
+      <input value={cityName} className="cityInput" onChange={onCityChange} autoFocus placeholder="Enter City..."/>
       <Button type="submit" color="primary">
         Show weather
       </Button>
@@ -18,6 +18,7 @@ export default function CityInput(props) {
 }
 
 CityInput.propTypes = {
+  cityName: PropTypes.string.isRequired,
   onCityChange: PropTypes.func.isRequired,
   fetchData: PropTypes.func.isRequired
 };

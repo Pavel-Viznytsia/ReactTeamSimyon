@@ -22,21 +22,25 @@ export default function WeatherData(props){
 
 
 WeatherData.propTypes = {
-  cityName: PropTypes.string,
-  weather: PropTypes.string,
-  description: PropTypes.string,
-  humidity: PropTypes.number,
-  img: PropTypes.string,
-  pressure: PropTypes.number,
-  temp: PropTypes.number,
+  weatherData: PropTypes.shape({
+    cityName: PropTypes.string,
+    weather: PropTypes.string,
+    description: PropTypes.string,
+    humidity: PropTypes.string,
+    img: PropTypes.string,
+    pressure: PropTypes.string,
+    temp: PropTypes.string
+  }),
 };
 
 WeatherData.defaultProps = {
-  cityName: '',
-  weather: '',
-  description: '',
-  humidity: null,
-  img: '',
-  pressure:null,
-  temp: null,
+  weatherData: {
+    cityName: '',
+    weather: '',
+    description: '',
+    humidity: '',
+    img: '',
+    pressure:null,
+    temp: null
+  }
 }

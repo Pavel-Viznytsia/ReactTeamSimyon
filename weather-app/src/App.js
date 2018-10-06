@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import CityInput from './components/CityInput';
 import WeatherData from './components/WeatherData/index';
 import './styles.css';
-
-import axios from 'axios';
 
 const WEATHER_URL = 'https://proxy-qurgawuxei.now.sh/data/2.5/weather?';
 const KEY = '658721d6e405c4c2214c53df32583a7a';
@@ -22,12 +21,16 @@ export default class App extends Component {
     this.getCurrentLocation();
   }
 
+  onCityChange = event => {
+    this.setState({
+      cityName: event.target.value,
+    });
+  };
+
   getCurrentLocation = () => {
     axios
       .get(`${GEO_API}`)
-      .then(response => {
-        return response.data.city;
-      })
+      .then(response => response.data.city)
       .then(city => {
         axios
           .get(`${WEATHER_URL}q=${city}&appid=${KEY}`)
@@ -38,20 +41,30 @@ export default class App extends Component {
             this.setData(response.data);
           })
           .catch(error => {
-            this.setState(prevState => ({
+            this.setState({
               isCityFound: false,
               errorMsg: `Error ${error.response.data.cod}. ${
                 error.response.data.message
               }`,
-            }));
+            });
           });
       });
   };
 
-  onCityChange = event => {
+  setData = data => {
+    const { name, main, weather } = data;
     this.setState({
-      cityName: event.target.value,
+      weatherData: {
+        cityName: name,
+        weather: weather[0].main,
+        description: `(${weather[0].description})`,
+        img: `${WEATHER_ICON_URL}/${weather[0].icon}.png`,
+        temp: (main.temp - 273.15).toFixed(),
+        pressure: `${main.pressure} mm Hg`,
+        humidity: `${main.humidity} %`,
+      },
     });
+    this.resetInput();
   };
 
   fetchData = event => {
@@ -69,32 +82,26 @@ export default class App extends Component {
       .catch(error => {
         this.setState({
           isCityFound: false,
-          errorMsg: `Error ${error.response.data.cod}. ${error.response.data.message}`,
+          errorMsg: `Error ${error.response.data.cod}. ${
+            error.response.data.message
+          }`,
         });
       });
   };
 
-  setData = data => {
-    const { name, main, weather } = data;
+  resetInput = () => {
     this.setState({
-      weatherData: {
-        cityName: name,
-        weather: weather[0].main,
-        description: `(${weather[0].description})`,
-        img: `${WEATHER_ICON_URL}/${weather[0].icon}.png`,
-        temp: (main.temp - 273.15).toFixed(),
-        pressure: `${main.pressure} mm Hg`,
-        humidity: `${main.humidity} %`,
-      },
+      cityName: '',
     });
   };
 
   render() {
-    const { weatherData, isCityFound, errorMsg } = this.state;
+    const { cityName, weatherData, isCityFound, errorMsg } = this.state;
     return (
       <div className="App">
         <h1>Сheck the weather</h1>
         <CityInput
+          cityName={cityName}
           fetchData={this.fetchData}
           onCityChange={this.onCityChange}
         />
