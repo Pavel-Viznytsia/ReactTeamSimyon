@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import CityInput from './components/CityInput';
 import WeatherData from './components/WeatherData/index';
 import './styles.css';
@@ -38,24 +37,27 @@ export default class App extends Component {
    * @return {Promise}
    */
   getCurrentLocation = () => {
-    axios
-      .get(`${GEO_API}`)
-      .then(response => response.data.city)
+    fetch(`${GEO_API}`)
+      .then(response => {
+        if (response.ok) return response.json();
+        throw new Error(this.errorHandler(response.status));
+      })
+      .then(data => data.city)
       .then(city => {
-        axios
-          .get(`${WEATHER_URL}q=${city}&appid=${KEY}`)
+        fetch(`${WEATHER_URL}q=${city}&appid=${KEY}`)
           .then(response => {
+            if (response.ok) return response.json();
+          })
+          .then(data => {
             this.setState(prevState => ({
               isCityFound: !prevState.isCityFound,
             }));
-            this.setData(response.data);
+            this.setData(data);
           })
           .catch(error => {
             this.setState({
               isCityFound: false,
-              errorMsg: `Error ${error.response.data.cod}. ${
-                error.response.data.message
-              }`,
+              errorMsg: `${error}`,
             });
           });
       });
@@ -92,23 +94,28 @@ export default class App extends Component {
     event.preventDefault();
     const { cityName } = this.state;
 
-    axios
-      .get(`${WEATHER_URL}q=${cityName}&appid=${KEY}`)
+    fetch(`${WEATHER_URL}q=${cityName}&appid=${KEY}`)
       .then(response => {
-        this.setData(response.data);
+        if (response.ok) return response.json();
+        this.setState({
+          isCityFound: false,
+        });
+        throw new Error(this.errorHandler(response.status));
+      })
+      .then(data => {
+        this.setData(data);
         this.setState({
           isCityFound: true,
         });
       })
       .catch(error => {
         this.setState({
-          isCityFound: false,
-          errorMsg: `Error ${error.response.data.cod}. ${
-            error.response.data.message
-          }`,
+          errorMsg: `${error}`,
         });
       });
   };
+
+  errorHandler = error => `Status ${error}.`;
 
   /**
    * Reset input value
