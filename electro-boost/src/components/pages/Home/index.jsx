@@ -40,7 +40,7 @@ const Home = ({
         placeholder="Confirm password"
         handleInputChange={handleInputChange}
       />
-      <Button type="submit" className="btnCta">
+      <Button type="submit" className="btnCta" onClick={handleSubmit}>
         Sign In
       </Button>
     </ModalTile>
