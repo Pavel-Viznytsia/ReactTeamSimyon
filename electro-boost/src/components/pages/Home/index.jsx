@@ -13,7 +13,7 @@ const Home = ({
   handleInputChange,
   handleSubmit,
 }) => (
-  <form>
+  <form onSubmit={handleSubmit}>
     <ModalTile className="column">
       <h1 className="title">Sign in to Electro Boost</h1>
       <Input
@@ -40,7 +40,7 @@ const Home = ({
         placeholder="Confirm password"
         handleInputChange={handleInputChange}
       />
-      <Button type="submit" className="btnCta" handleSubmit={handleSubmit}>
+      <Button type="submit" className="btnCta">
         Sign In
       </Button>
     </ModalTile>
