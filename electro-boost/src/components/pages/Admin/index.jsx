@@ -2,11 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 
-const propTypes = {
-  isAdmin: PropTypes.bool.isRequired
-}
-
-const AdminPage = (props) => {
+const AdminPage = props => {
   if (!props.isAdmin) {
     return <Redirect to="/" />;
   }
@@ -17,6 +13,8 @@ const AdminPage = (props) => {
   );
 };
 
-AdminPage.prototype = propTypes;
+AdminPage.propTypes = {
+  isAdmin: PropTypes.bool.isRequired,
+};
 
 export default AdminPage;

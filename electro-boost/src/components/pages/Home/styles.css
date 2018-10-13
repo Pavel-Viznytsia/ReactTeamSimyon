@@ -1,0 +1,26 @@
+.title {
+  margin: 0;
+  padding-bottom: 24px;
+  font-weight: 300;
+  font-size: 4vw;
+}
+
+.input,
+.btnCta {
+  width: 45%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.input {
+  margin-bottom: 16px;
+}
+
+.btnCta {
+  cursor: pointer;
+  border: none;
+}
+
+.btnCta:hover {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, .15);
+}
