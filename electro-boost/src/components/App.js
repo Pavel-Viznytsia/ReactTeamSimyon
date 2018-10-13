@@ -59,6 +59,7 @@ class App extends Component {
                   password={password}
                   confirmPassword={confirmPassword}
                   handleInputChange={this.handleInputChange}
+                  handleSubmit={this.handleSubmit}
                 />
               )}
             />
