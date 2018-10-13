@@ -6,7 +6,6 @@ import Login from './pages/Login';
 import Admin from './pages/Admin';
 import UserPage from './pages/User';
 import auth from '../components/mock/fakeAuth';
-// import Button from './shared/Button';
 import ModalTile from './shared/ModalTile';
 
 class App extends Component {
