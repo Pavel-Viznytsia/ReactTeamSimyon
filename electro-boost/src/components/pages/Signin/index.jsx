@@ -11,10 +11,20 @@ import './styles.css';
 const propTypes = {
   userName: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
-  car: PropTypes.string.isRequired,
+  car: PropTypes.string,
+  user: PropTypes.shape({
+    userName: PropTypes.string.isRequired,
+    userRole: PropTypes.string.isRequired,
+  }),
   handleInputChange: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
+  handleSignInFormSubmit: PropTypes.func.isRequired,
   handleSelectChange: PropTypes.func.isRequired,
+};
+
+const defaultProps = {
+  car: '',
+  user: null,
+  isAdmin: false,
 };
 
 const Signin = ({
@@ -22,12 +32,12 @@ const Signin = ({
   password,
   car,
   handleInputChange,
-  handleSubmit,
+  handleSignInFormSubmit,
   handleSelectChange,
 }) => (
   <ModalTile>
-    <form className="form" onSubmit={handleSubmit}>
-      <h1 className="title">Sign Up to Electro Boost</h1>
+    <form className="form" onSubmit={handleSignInFormSubmit}>
+      <h1 className="title">Sign In to Electro Boost</h1>
       <Input
         type="text"
         name="userName"
@@ -45,8 +55,10 @@ const Signin = ({
         handleInputChange={handleInputChange}
       />
       <Select handleSelectChange={handleSelectChange} car={car} />
-      <Button type="submit" className="btnCta" onClick={handleSubmit}>
-        Sign in
+      <Button type="submit" className="btnCta">
+        <Link className="href" to="/admin" onClick={handleSignInFormSubmit}>
+          Sign in
+        </Link>
       </Button>
       <span className="signInBlock">
         Don`t have an account?{' '}
@@ -59,5 +71,6 @@ const Signin = ({
 );
 
 Signin.propTypes = propTypes;
+Signin.defaultProps = defaultProps;
 
 export default Signin;

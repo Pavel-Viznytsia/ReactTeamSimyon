@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Route, Switch, Router } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Signup from './pages/Signup';
 import Signin from './pages/Signin';
 import Admin from './pages/Admin';
-import UserPage from './pages/User';
+import User from './pages/User';
 import PageNotFound from './pages/PageNotFound';
 import auth from '../components/mock/fakeAuth';
 
@@ -15,14 +15,33 @@ class App extends Component {
     password: '',
     confirmPassword: '',
     car: '',
+    isAdmin: false,
   };
-  onAuth = (login, pass) => {
-    auth(login, pass)
-      .then(userData =>
+
+  handleInputChange = event => {
+    const name = event.target.name;
+    const value = event.target.value;
+
+    this.setState({
+      [name]: value,
+    });
+  };
+
+  handleSubmit = event => {
+    event.preventDefault();
+  };
+
+  handleSignInFormSubmit = event => {
+    event.preventDefault();
+
+    const { userName, password } = this.state;
+
+    auth(userName, password)
+      .then(userData => {
         this.setState({
           user: userData,
-        }),
-      )
+        });
+      })
       .catch(errorMsg =>
         this.setState({
           errorMsg: errorMsg.errorAuthMsg,
@@ -30,25 +49,16 @@ class App extends Component {
       );
   };
 
-  handleInputChange = event => {
-    const name = event.target.name;
-    const value = event.target.value;
-
-    this.setState({ [name]: value });
-  };
-
-  handleSubmit = event => {
-    event.preventDefault();
-  };
-
   handleSelectChange = event => {
+    event.preventDefault();
+
     this.setState({
       car: event.target.value,
     });
   };
 
   render() {
-    const { userName, password, confirmPassword, car } = this.state;
+    const { userName, password, confirmPassword, car, isAdmin } = this.state;
     return (
       <div className="App">
         {/* <Router> */}
@@ -61,7 +71,6 @@ class App extends Component {
                 userName={userName}
                 password={password}
                 confirmPassword={confirmPassword}
-                car={car}
                 handleInputChange={this.handleInputChange}
                 handleSubmit={this.handleSubmit}
               />
@@ -73,14 +82,16 @@ class App extends Component {
               <Signin
                 userName={userName}
                 password={password}
+                car={car}
+                isAdmin={isAdmin}
                 handleInputChange={this.handleInputChange}
-                handleSubmit={this.handleSubmit}
+                handleSignInFormSubmit={this.handleSignInFormSubmit}
                 handleSelectChange={this.handleSelectChange}
               />
             )}
           />
-          <Route path="/admin" render={() => <Admin isAdmin />} />
-          <Route path="/user" component={UserPage} />
+          <Route path="/admin" component={Admin} />
+          <Route path="/user" component={User} />
           <Route component={PageNotFound} />
         </Switch>
         {/* </Router> */}

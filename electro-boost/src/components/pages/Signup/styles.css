@@ -12,7 +12,6 @@
 
 .input,
 .btnCta {
-  padding: 8px;
   box-sizing: border-box;
 }
 
@@ -21,8 +20,16 @@
 }
 
 .btnCta {
+  padding: 0;
   cursor: pointer;
   border: none;
+}
+
+.btnCta a {
+  display: block;
+  padding: 8px 0;
+  color: #000000d6;
+  text-decoration: none;
 }
 
 .btnCta:hover {

@@ -7,11 +7,12 @@ const propTypes = {
   type: PropTypes.string.isRequired,
   className: PropTypes.string.isRequired,
   children: PropTypes.node,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
 };
 
 const defaulProps = {
   children: {},
+  onClick: () => {},
 };
 
 const Button = ({ type, className, children, onClick }) => (

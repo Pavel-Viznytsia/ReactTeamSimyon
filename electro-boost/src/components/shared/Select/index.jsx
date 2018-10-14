@@ -5,7 +5,11 @@ import './styles.css';
 
 const propTypes = {
   handleSelectChange: PropTypes.func.isRequired,
-  car: PropTypes.string.isRequired,
+  car: PropTypes.string,
+};
+
+const defaultProps = {
+  car: '',
 };
 
 const Select = ({ handleSelectChange, car }) => (
@@ -23,5 +27,6 @@ const Select = ({ handleSelectChange, car }) => (
 );
 
 Select.propTypes = propTypes;
+Select.defaultProps = defaultProps;
 
 export default Select;
