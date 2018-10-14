@@ -1,0 +1,51 @@
+.title {
+  margin: 0;
+  padding-bottom: 24px;
+  font-weight: 300;
+  font-size: 24px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input,
+.btnCta {
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.input {
+  margin-bottom: 16px;
+}
+
+.btnCta {
+  cursor: pointer;
+  border: none;
+}
+
+.btnCta a {
+  color: #000000d6;
+  text-decoration: none;
+}
+
+.btnCta:hover {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, .15);
+}
+
+.signInBlock {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.href {
+  text-decoration: none;
+  color: #03a87c;
+  ;
+}
+
+.href:hover {
+  color: #018f69;
+}

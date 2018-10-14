@@ -1,21 +1,20 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Home from './pages/Home';
+import { Route, Switch, Router } from 'react-router-dom';
+import Signup from './pages/Signup';
 import Signin from './pages/Signin';
-import Login from './pages/Login';
 import Admin from './pages/Admin';
 import UserPage from './pages/User';
+import PageNotFound from './pages/PageNotFound';
 import auth from '../components/mock/fakeAuth';
-import ModalTile from './shared/ModalTile';
 
 class App extends Component {
   state = {
     user: null,
     errorMsg: '',
-    isModalActive: false,
     userName: '',
     password: '',
     confirmPassword: '',
+    car: '',
   };
   onAuth = (login, pass) => {
     auth(login, pass)
@@ -42,32 +41,49 @@ class App extends Component {
     event.preventDefault();
   };
 
+  handleSelectChange = event => {
+    this.setState({
+      car: event.target.value,
+    });
+  };
+
   render() {
-    const { userName, password, confirmPassword, isModalActive } = this.state;
+    const { userName, password, confirmPassword, car } = this.state;
     return (
       <div className="App">
-        {isModalActive && <ModalTile />}
-        <Router>
-          <Switch>
-            <Route
-              exact
-              path="/"
-              render={() => (
-                <Home
-                  userName={userName}
-                  password={password}
-                  confirmPassword={confirmPassword}
-                  handleInputChange={this.handleInputChange}
-                  handleSubmit={this.handleSubmit}
-                />
-              )}
-            />
-            <Route path="/signin" component={Signin} />
-            <Route path="/login" component={Login} />
-            <Route path="/admin" render={() => <Admin isAdmin />} />
-            <Route path="/user" component={UserPage} />
-          </Switch>
-        </Router>
+        {/* <Router> */}
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <Signup
+                userName={userName}
+                password={password}
+                confirmPassword={confirmPassword}
+                car={car}
+                handleInputChange={this.handleInputChange}
+                handleSubmit={this.handleSubmit}
+              />
+            )}
+          />
+          <Route
+            path="/signin"
+            render={() => (
+              <Signin
+                userName={userName}
+                password={password}
+                handleInputChange={this.handleInputChange}
+                handleSubmit={this.handleSubmit}
+                handleSelectChange={this.handleSelectChange}
+              />
+            )}
+          />
+          <Route path="/admin" render={() => <Admin isAdmin />} />
+          <Route path="/user" component={UserPage} />
+          <Route component={PageNotFound} />
+        </Switch>
+        {/* </Router> */}
       </div>
     );
   }

@@ -1,27 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Input from '../../shared/Input';
 import Button from '../../shared/Button';
 import ModalTile from '../../shared/ModalTile';
 
 import './styles.css';
 
-const Home = ({
+const Signup = ({
   userName,
   password,
   confirmPassword,
   handleInputChange,
   handleSubmit,
 }) => (
-  <form onSubmit={handleSubmit}>
-    <ModalTile className="column">
-      <h1 className="title">Sign in to Electro Boost</h1>
+  <ModalTile>
+    <form className="form" onSubmit={handleSubmit}>
+      <h1 className="title">Sign Up to Electro Boost</h1>
       <Input
         type="text"
         name="userName"
         value={userName}
         className="input"
-        placeholder="Email or Username"
+        placeholder="Email or Username*"
         handleInputChange={handleInputChange}
       />
       <Input
@@ -29,7 +30,7 @@ const Home = ({
         name="password"
         value={password}
         className="input"
-        placeholder="Password"
+        placeholder="Set A Password*"
         handleInputChange={handleInputChange}
       />
       <Input
@@ -37,17 +38,27 @@ const Home = ({
         name="confirmPassword"
         value={confirmPassword}
         className="input"
-        placeholder="Confirm password"
+        placeholder="Confirm Password*"
         handleInputChange={handleInputChange}
       />
+
       <Button type="submit" className="btnCta" onClick={handleSubmit}>
-        Sign In
+        <Link to="/admin">Sign Up</Link>
       </Button>
-    </ModalTile>
-  </form>
+
+      {/* <Route exact path="/admin" component={Admin} /> */}
+
+      <span className="signInBlock">
+        Already have an account?{' '}
+        <Link className="href" to="/signin">
+          Sign in.
+        </Link>
+      </span>
+    </form>
+  </ModalTile>
 );
 
-Home.propTypes = {
+Signup.propTypes = {
   userName: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
   confirmPassword: PropTypes.string.isRequired,
@@ -55,4 +66,4 @@ Home.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
 };
 
-export default Home;
+export default Signup;
