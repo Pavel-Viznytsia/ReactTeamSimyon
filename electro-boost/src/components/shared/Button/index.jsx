@@ -3,21 +3,24 @@ import PropTypes from 'prop-types';
 
 import './styles.css';
 
-const Button = ({ type, className, children, onClick }) => (
-  <button type={type} className={className} onClick={onClick}>
-    {children}
-  </button>
-);
-
-Button.propTypes = {
+const propTypes = {
   type: PropTypes.string.isRequired,
   className: PropTypes.string.isRequired,
   children: PropTypes.node,
   onClick: PropTypes.func.isRequired,
 };
 
-Button.defaultProps = {
+const defaulProps = {
   children: {},
 };
+
+const Button = ({ type, className, children, onClick }) => (
+  <button type={type} className={className} onClick={onClick}>
+    {children}
+  </button>
+);
+
+Button.propTypes = propTypes;
+Button.defaultProps = defaulProps;
 
 export default Button;

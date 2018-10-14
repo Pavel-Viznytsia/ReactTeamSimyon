@@ -3,6 +3,11 @@ import PropTypes from 'prop-types';
 
 import './styles.css';
 
+const propTypes = {
+  handleSelectChange: PropTypes.func.isRequired,
+  car: PropTypes.string.isRequired,
+};
+
 const Select = ({ handleSelectChange, car }) => (
   <select
     onChange={handleSelectChange}
@@ -17,9 +22,6 @@ const Select = ({ handleSelectChange, car }) => (
   </select>
 );
 
-Select.propTypes = {
-  handleSelectChange: PropTypes.func.isRequired,
-  car: PropTypes.string.isRequired,
-};
+Select.propTypes = propTypes;
 
 export default Select;

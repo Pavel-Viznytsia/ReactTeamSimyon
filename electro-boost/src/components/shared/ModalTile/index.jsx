@@ -3,18 +3,21 @@ import PropTypes from 'prop-types';
 
 import './styles.css';
 
-const ModalTile = ({ className, children }) => (
-  <div className={className}>{children}</div>
-);
-
-ModalTile.propTypes = {
+const propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,
 };
 
-ModalTile.defaultProps = {
+const defaultProps = {
   className: 'modal',
   children: {},
 };
+
+const ModalTile = ({ className, children }) => (
+  <div className={className}>{children}</div>
+);
+
+ModalTile.propTypes = propTypes;
+ModalTile.defaultProps = defaultProps;
 
 export default ModalTile;

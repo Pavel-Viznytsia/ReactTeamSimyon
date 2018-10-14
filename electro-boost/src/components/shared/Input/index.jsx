@@ -3,6 +3,20 @@ import PropTypes from 'prop-types';
 
 import './styles.css';
 
+const propTypes = {
+  className: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string,
+  type: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
+  handleInputChange: PropTypes.func.isRequired,
+};
+
+const defaultProps = {
+  className: '',
+  value: '',
+};
+
 const Input = ({
   className,
   name,
@@ -21,18 +35,7 @@ const Input = ({
   />
 );
 
-Input.propTypes = {
-  className: PropTypes.string,
-  name: PropTypes.string.isRequired,
-  value: PropTypes.string,
-  type: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
-  handleInputChange: PropTypes.func.isRequired,
-};
-
-Input.defaultProps = {
-  className: '',
-  value: '',
-};
+Input.propTypes = propTypes;
+Input.defaultProps = defaultProps;
 
 export default Input;

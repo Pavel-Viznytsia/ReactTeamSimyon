@@ -8,6 +8,15 @@ import ModalTile from '../../shared/ModalTile';
 
 import './styles.css';
 
+const propTypes = {
+  userName: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired,
+  car: PropTypes.string.isRequired,
+  handleInputChange: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  handleSelectChange: PropTypes.func.isRequired,
+};
+
 const Signin = ({
   userName,
   password,
@@ -49,13 +58,6 @@ const Signin = ({
   </ModalTile>
 );
 
-Signin.propTypes = {
-  userName: PropTypes.string.isRequired,
-  password: PropTypes.string.isRequired,
-  car: PropTypes.string.isRequired,
-  handleInputChange: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  handleSelectChange: PropTypes.func.isRequired,
-};
+Signin.propTypes = propTypes;
 
 export default Signin;
