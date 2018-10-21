@@ -7,20 +7,23 @@ import User from './pages/User';
 import PageNotFound from './pages/PageNotFound';
 import auth from '../components/mock/fakeAuth';
 
-class App extends Component {
-  state = {
-    user: null,
-    errorMsg: '',
-    userName: '',
-    password: '',
-    confirmPassword: '',
-    car: '',
-    isAdmin: false,
-  };
+const INITIAL_STATE = {
+  user: null,
+  errorMsg: '',
+  userName: '',
+  password: '',
+  isLogin: false,
+  confirmPassword: '',
+  car: '',
+  isAdmin: false,
+};
 
-  handleInputChange = event => {
-    const name = event.target.name;
-    const value = event.target.value;
+class App extends Component {
+  state = { ...INITIAL_STATE };
+
+  handleInputChange = ({ target }) => {
+    const name = target.name;
+    const value = target.value;
 
     this.setState({
       [name]: value,
@@ -40,7 +43,10 @@ class App extends Component {
       .then(userData => {
         this.setState({
           user: userData,
+          isLogin: true,
         });
+
+        // this.resetState();
       })
       .catch(errorMsg =>
         this.setState({
@@ -57,17 +63,29 @@ class App extends Component {
     });
   };
 
+  handleLogout = () => {
+    this.setState({ ...INITIAL_STATE });
+  };
+
   render() {
-    const { userName, password, confirmPassword, car, isAdmin } = this.state;
+    const {
+      user,
+      userName,
+      password,
+      confirmPassword,
+      car,
+      isLogin,
+      isAdmin,
+    } = this.state;
     return (
       <div className="App">
-        {/* <Router> */}
         <Switch>
           <Route
             exact
             path="/"
             render={() => (
               <Signup
+                user={user}
                 userName={userName}
                 password={password}
                 confirmPassword={confirmPassword}
@@ -80,6 +98,7 @@ class App extends Component {
             path="/signin"
             render={() => (
               <Signin
+                user={user}
                 userName={userName}
                 password={password}
                 car={car}
@@ -90,11 +109,16 @@ class App extends Component {
               />
             )}
           />
-          <Route path="/admin" component={Admin} />
-          <Route path="/user" component={User} />
+          <Route
+            path="/admin"
+            render={() => <Admin car={car} handleLogout={this.handleLogout} />}
+          />
+          <Route
+            path="/user"
+            render={() => <User car={car} handleLogout={this.handleLogout} />}
+          />
           <Route component={PageNotFound} />
         </Switch>
-        {/* </Router> */}
       </div>
     );
   }

@@ -51,7 +51,9 @@ const Signup = ({
       />
 
       <Button type="submit" className="btnCta" onClick={handleSubmit}>
-        <Link to="/admin">Sign Up</Link>
+        {/* <Link to="/admin"> */}
+        Sign Up
+        {/* </Link> */}
       </Button>
 
       {/* <Route exact path="/admin" component={Admin} /> */}
