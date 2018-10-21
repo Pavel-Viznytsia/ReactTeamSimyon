@@ -15,7 +15,6 @@ const INITIAL_STATE = {
   isLogin: false,
   confirmPassword: '',
   car: '',
-  isAdmin: false,
 };
 
 class App extends Component {
@@ -76,6 +75,7 @@ class App extends Component {
       car,
       isLogin,
       isAdmin,
+      isUser,
     } = this.state;
     return (
       <div className="App">
